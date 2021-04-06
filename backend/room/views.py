@@ -14,3 +14,10 @@ class RoomDetailView(DetailView):
         context['otherrooms'] = RoomType.objects.filter(~Q(
             room_type=self.object.room_type))
         return context
+
+
+class RoomListView(ListView):
+    model = RoomType
+    template_name = 'room/rooms.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'rooms'
+    ordering = ['-date_added']

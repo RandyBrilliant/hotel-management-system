@@ -134,3 +134,11 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+    @property
+    def profileURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url

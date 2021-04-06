@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Hotel Management System - Login Page{% endblock %}
+{% block content %}
+<div class="hero-wrap" style="background-image: url({% static 'images/bg_1.jpg' %});">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+      <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+        <div class="text">
+	        <h1 class="mb-4 bread">Login Page</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5 mb-5">
+  <form method="POST" class="mx-5" action="">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="password">
+    </div>
+    <input type="submit" name="signin" id="signin" class="btn btn-block btn-primary" value="Log in"/>
+  </form>
+</div>
+{% endblock %}
