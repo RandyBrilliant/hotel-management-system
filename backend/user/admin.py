@@ -15,6 +15,7 @@ admin.site.unregister(Group)
 class UserProfileInline(admin.StackedInline):
     model = Profile
     fk_name = 'user'
+    readonly_fields = ['last_update']
 
 
 class UserAdmin(BaseUserAdmin):

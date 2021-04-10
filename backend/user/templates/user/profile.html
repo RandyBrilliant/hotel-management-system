@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}{{user.username}}'s Profile{% endblock %}
+
+{% block content %}
+<div class="hero-wrap" style="background-image: url({% static 'images/bg_1.jpg' %});">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+      <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+        <div class="text">
+	        <h1 class="mb-4 bread">{{user.username}}'s Profile</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5 mb-5">
+	<div class="row">
+		<div class="col-md-3 ">
+		  <div class="list-group ">
+        <a href="{% url 'profile' %}" class="list-group-item list-group-item-action active">Change Profile Data</a>
+        <a href="{% url 'change_password' %}" class="list-group-item list-group-item-action">Change Password</a>
+      </div> 
+		</div>
+	  <div class="col-md-9">
+		  <div class="card">
+		    <div class="card-body">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+		      <div class="row">
+		        <div class="col-md-12">
+		          <h4>Your Profile</h4>
+		          <hr>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="col-md-12">
+		          <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ u_form|crispy }}
+                <div class="form-group row">
+                    <button name="submit" type="submit" class="btn btn-primary btn-block  mt-4">Update My Profile</button>
+                </div>
+              </form>
+		        </div>
+          </div>
+	      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from PIL import Image
+from django.urls import reverse
 
 # Create your models here.
 
@@ -105,7 +106,8 @@ class Profile(models.Model):
 
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, verbose_name="First Name")
-    last_name = models.CharField(max_length=200, verbose_name="Last Name")
+    last_name = models.CharField(
+        max_length=200, verbose_name="Last Name", blank=True, null=True)
     address = models.TextField()
     phone_no = models.CharField(max_length=20, verbose_name="Phone Number")
     gender = models.CharField(
