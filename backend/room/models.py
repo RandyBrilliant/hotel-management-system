@@ -15,7 +15,6 @@ class RoomType(models.Model):
                                  default="room_img/default.jpg", upload_to="room_img")
     description = RichTextField()
     room_price = models.DecimalField(max_digits=19, decimal_places=2)
-    status = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(null=True, unique=True)
@@ -36,13 +35,28 @@ class RoomType(models.Model):
 
 
 class Room(models.Model):
+    OCCUPIED = "OCP"
+    CLEANED = "CLN"
+    AVAILABLE = "AVA"
+    OFF = "OFF"
+    STATUS = [
+        (OCCUPIED, 'Occupied'),
+        (CLEANED, 'Clean'),
+        (AVAILABLE, 'Available'),
+        (OFF, 'Off'),
+    ]
     room_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
-    room_no = models.IntegerField(blank=False, null=False)
-    status = models.CharField(max_length=200)
+    room_no = models.IntegerField(blank=False, null=False, unique=True)
+    status = models.CharField(
+        max_length=3,
+        choices=STATUS,
+        verbose_name="Room Status",
+        default=AVAILABLE
+    )
     date_added = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.room_no
+        return str(self.room_no)
