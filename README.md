@@ -2,9 +2,9 @@
 Hotel Management System for ERP Final Project at IB IT&amp;B
 ## How to run the website locally
 
-### Change directory to project folder
+### Change directory to project folder (hotel-management-system)
 ```
-cd hotel-management-system
+cd path\to\the\project\folder
 ```
 
 ### Activate Virtual Environment
