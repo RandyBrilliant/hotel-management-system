@@ -22,7 +22,8 @@ class Booking(models.Model):
 
     booking_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(
+        Room, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     booking_date = models.DateTimeField(auto_now_add=True)
     check_in = models.DateField()
@@ -30,9 +31,12 @@ class Booking(models.Model):
     status = models.CharField(
         max_length=3,
         choices=STATUS,
-        verbose_name="Room Status",
+        verbose_name="Booking Status",
         default=RESERVED
     )
 
     def __str__(self):
         return str(self.booking_id)
+
+    def customer_name(self):
+        return str(self.customer.username)

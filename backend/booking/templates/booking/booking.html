@@ -41,28 +41,92 @@
 	      </div>
 	    </div>
 	    <div class="col-lg-9">
-		    <div class="row">
-          {% for room in rooms %}
-		    	<div class="col-sm col-md-6 col-lg-4 ftco-animate">
-		    		<div class="room">
-		    			<a href="{{room.get_absolute_url}}" class="img d-flex justify-content-center align-items-center" style="background-image: url({{room.imageURL}});">
-		    				<div class="icon d-flex justify-content-center align-items-center">
-		    					<span class="icon-search2"></span>
-		    				</div>
-		    			</a>
-		    			<div class="text p-3 text-center">
-		    				<h3 class="mb-3"><a href="{{room.get_absolute_url}}">{{room.room_name}}</a></h3>
-		    				<p><span class="price mr-2">Rp. {{ room.room_price|intcomma }}</span> <span class="per">per night</span></p>
-		    				<hr>
-		    				<p class="pt-1"><a href="{{room.get_absolute_url}}" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
-		    			</div>
-		    		</div>
-		    	</div>
-          {% endfor %}
+          <h3 class="heading">Guest Details</h3>
+          <hr />
+          <form method="POST" action="{% url 'booking-complete-page' %}">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" value={{user.profile.first_name}} required />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" value={{user.profile.last_name}} />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" value={{user.email}} required />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="phone_no">Telephone</label>
+                <input type="phone" class="form-control" id="phone_no" value={{user.profile.phone_no}} required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="address">Street Address</label>
+                <input type="text" class="form-control" id="address" value="{{user.profile.address_proof}}" required />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="id_proof">ID Proof</label>
+                <input type="text" class="form-control" id="id_proof" value={{user.profile.id_proof}} required />
+              </div>
+            </div>
+            <h3 class="heading mt-5">Booking Details</h3>
+            <hr>
+            <div class="form-row">
+              <p class="font-weight-bold">Check-In</p><span class="ml-auto">{{check_in_date}}</span>
+              <input type="text" class="form-control d-none" id="checkIn" value={{check_in_date}} name="checkIn" required />
+            </div>
+            <div class="form-row">
+              <p class="font-weight-bold">Check-Out</p><span class="ml-auto">{{check_out_date}}</span>
+              <input type="text" class="form-control d-none" id="checkOut" value={{check_out_date}} name="checkOut" required />
+            </div>
+            <div class="form-row">
+              <p class="font-weight-bold">Nights Total</p><span class="ml-auto">{{nights.days}} nights</span>
+            </div>
+            
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Room</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for room in final_rooms %}
+                  <tr>
+                    <td>
+                      <img src="{{room.imageURL}}" alt="{{room.room_name}}" width="100" />
+                      <p class="font-weight-bold mt-2">{{room.room_name}}</p>
+                      <input type="text" class="form-control d-none" id="room_type" value={{room.room_type}} name="room_type" required />
+                    </td>
+                    <td>1</td>
+                    <td>Rp. {{ room.room_price|intcomma }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <hr>
+            <div class="form-row">
+              {% for room in final_rooms %}
+                <p class="font-weight-bold">Grand Total</p><span class="ml-auto">Rp. {% widthratio room.room_price 1 nights.days %}</span>
+              {% endfor %}
+            </div>
+            <hr>
+            <p class="text-muted mt-5">
+              Your personal data will be used to support your experience throughout this website, to process your reservations, and for other purposes described in our privacy policy.
+            </p>
+            <div class="form-group mt-2">
+              <input type="submit" value="Book Now" class="btn btn-secondary py-3 px-5 btn-block" style="border-radius: 0;">
+            </div>
+          </form>
 		    </div>
 		  </div>
-		  
-		</div>
   </div>
 </section>
 {% endblock %}

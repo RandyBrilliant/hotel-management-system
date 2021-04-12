@@ -4,7 +4,7 @@ from .models import Room, RoomType
 
 class RoomTypeAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('room_name',)}
-    list_display = ['room_type', 'room_name', 'edited_room_price']
+    list_display = ['room_name', 'edited_room_price', 'date_updated']
 
     def edited_room_price(self, obj):
         return "Rp. {}".format(obj.room_price)

@@ -3,6 +3,7 @@ from .models import Booking
 from room.models import RoomType, Room
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+import uuid
 
 # Create your views here.
 
@@ -62,3 +63,33 @@ def BookingPage(request):
         }
 
     return render(request, 'booking/booking.html', context)
+
+
+@login_required
+def CompletePage(request):
+    if request.method == 'POST' or 'submit' in request.POST:
+        check_in_date = request.POST.get("checkIn")
+        check_out_date = request.POST.get("checkOut")
+        chosen_room = request.POST.get("room_type")
+        guest_detail = request.user
+
+        booking_no_room = Booking.objects.filter(
+            check_in__gte=check_in_date, check_out__lte=check_out_date).values('room__room_no')
+        room_available = Room.objects.exclude(
+            room_no__in=booking_no_room).filter(room_type=uuid.UUID(chosen_room)).first()
+
+        final = Booking(
+            room=room_available,
+            customer=guest_detail,
+            check_in=check_in_date,
+            check_out=check_out_date,
+        )
+
+        Booking.save(final)
+
+    booking = Booking.objects.latest('booking_id')
+    context = {
+        'booking': booking,
+    }
+
+    return render(request, 'booking/complete.html', context)

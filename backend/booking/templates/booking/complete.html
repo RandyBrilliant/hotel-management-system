@@ -1,0 +1,96 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load humanize %} 
+{% block title %}Thank You{% endblock %}
+{% block content %}
+<div class="hero-wrap" style="background-image: url({% static 'images/bg_1.jpg' %});">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+      <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+        <div class="text">
+	        <h1 class="mb-4 bread">Reservation Received</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 sidebar">
+	      <div class="sidebar-wrap bg-light ftco-animate">
+	      	<h3 class="heading">Your Stay</h3>
+          <hr>
+	      	<div class="fields">
+            <p>Check-In Date</p>
+		        <input type="text" id="checkin_date" class="form-control checkin_date mb-2" value="{{booking.check_in}}" disabled>
+            <p>Check-Out Date</p>
+		        <input type="text" id="checkin_date" class="form-control checkout_date mb-2" value="{{booking.check_out}}" disabled>
+            <hr>
+            {% for room in final_rooms %}
+              <p>{{room.room_name}}<span class="ml-2">({{nights.days}} nights)</span></p>
+              <hr>
+              <div class="total text-center">
+                <h3>Total Price</h3>
+                <p class="font-weight-bold">Rp. {% widthratio room.room_price 1 nights.days %}</p>
+              </div>
+            {% endfor %}
+          </div>
+	      </div>
+	    </div>
+	    <div class="col-lg-9">
+          <h3 class="heading">THANK YOU. YOUR RESERVATION HAS BEEN RECEIVED.</h3>
+          <hr />
+          <div class="row">
+            <p>Reservation Number</p><span class="ml-auto font-weight-bold">{{booking.booking_id}}</span>
+          </div>
+          <div class="row">
+            <p>Date</p><span class="ml-auto font-weight-bold">{{booking.booking_date}}</span>
+          </div>
+          <div class="row">
+            <p>Check-in</p><span class="ml-auto font-weight-bold">{{booking.check_in}}</span>
+          </div>
+          <div class="row">
+            <p>Check-out</p><span class="ml-auto font-weight-bold">{{booking.check_out}}</span>
+          </div>
+          <h3 class="heading mt-5">Reservation Details</h3>
+          <hr>
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Room</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="{{booking.room.room_type.imageURL}}" alt="{{booking.room.room_type.room_name}}" width="100" />
+                    <p class="font-weight-bold mt-2">{{booking.room.room_type.room_name}}</p>
+                  </td>
+                  <td>1</td>
+                  <td>Rp. {{ booking.room.room_type.room_price|intcomma }}</td>
+                </tr>
+              </tbody>
+          </table>
+ 
+          <h3 class="heading mt-5">Guest Details</h3>
+          <hr>
+          <div class="row">
+            <p>Name</p><span class="ml-auto font-weight-bold">{{user.profile.first_name}}</span>
+          </div>
+          <div class="row">
+            <p>Email Address</p><span class="ml-auto font-weight-bold">{{user.email}}</span>
+          </div>
+          <div class="row">
+            <p>Telephone</p><span class="ml-auto font-weight-bold">{{user.profile.phone_no}}</span>
+          </div>
+          <a href="{% url 'home-page' %}" class="btn btn-secondary py-3 px-5 btn-block mt-3" style="border-radius: 0;">Back to Homepage</a>
+		  </div>
+		</div>
+  </div>
+</section>
+{% endblock %}

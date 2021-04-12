@@ -5,7 +5,8 @@ from .models import Booking
 
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['booking_id', 'customer', 'booking_date', 'status']
+    list_display = ['booking_id', 'customer_name',
+                    'booking_date', 'room', 'status']
     search_fields = ['room_name']
 
 

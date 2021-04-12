@@ -4,6 +4,7 @@ from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from .forms import RegisterForm, UserUpdateForm
+from booking.models import Booking
 # Create your views here.
 
 
@@ -63,3 +64,14 @@ def PasswordChanges(request):
     return render(request, 'user/change_password.html', {
         'form': form
     })
+
+
+@login_required
+def BookingList(request):
+    my_bookings = Booking.objects.filter(customer__email=request.user.email)
+    print(my_bookings)
+
+    context = {
+        'my_bookings': my_bookings
+    }
+    return render(request, 'user/list_booking.html', context)
