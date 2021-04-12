@@ -7,6 +7,7 @@ var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
 var checkin = $('#checkIn').datepicker({
+	format: 'yyyy-mm-dd',
     onRender: function(date) {
         return date.valueOf() < now.valueOf() ? 'disabled' : '';
     }
@@ -20,6 +21,7 @@ var checkin = $('#checkIn').datepicker({
     $('#checkOut')[0].focus();
 }).data('datepicker');
 var checkout = $('#checkOut').datepicker({
+		format: 'yyyy-mm-dd',
     onRender: function(date) {
         return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
     }

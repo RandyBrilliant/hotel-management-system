@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('room/', include('room.urls')),
     path('user/', include('user.urls')),
+    path('booking/', include('booking.urls')),
 ]
 
 if settings.DEBUG:
