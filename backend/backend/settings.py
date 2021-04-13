@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'room.apps.RoomConfig',
     'booking.apps.BookingConfig',
     'user.apps.UserConfig',
+    'restaurant.apps.RestaurantConfig',
 
     # Third-parties libraries
     'ckeditor',

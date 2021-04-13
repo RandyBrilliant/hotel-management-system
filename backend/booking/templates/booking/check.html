@@ -55,8 +55,6 @@
                         {% if k == room %}
                           {% if v|length == 1 %}
                             <span class="badge badge-danger px-2 py-2">{{ v|length }} Room Left!</span>
-                          {% else %}
-                            <span class="badge badge-primary px-2 py-2">Rooms Left: {{ v|length }}</span>
                           {% endif %}
                         {% endif %}
                       {% endfor %}

@@ -40,6 +40,7 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item mt-2"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
 	          <li class="nav-item mt-2"><a href="{% url 'about-page' %}" class="nav-link">About</a></li>
+            <li class="nav-item mt-2"><a href="{% url 'restaurant' %}" class="nav-link">Restaurant</a></li>
 	          <li class="nav-item mt-2"><a href="{% url 'room-list' %}" class="nav-link">Rooms</a></li>
             {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
@@ -71,7 +72,7 @@
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">HMS Hotel</h2>
               <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+              <ul class="ftco-footer-social list-unstyled float-md- left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
@@ -84,6 +85,7 @@
               <ul class="list-unstyled">
                 <li><a href="{% url 'about-page' %}" class="py-2 d-block">About Us</a></li>
                 <li><a href="{% url 'room-list' %}" class="py-2 d-block">Rooms</a></li>
+                <li><a href="{% url 'restaurant' %}" class="py-2 d-block">Restaurants</a></li>
               </ul>
             </div>
           </div>
