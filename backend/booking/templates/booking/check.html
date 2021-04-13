@@ -37,13 +37,13 @@
     </div>
     <div class="row d-flex align-items-center justify-content-center mt-5">
       <div class="col">
-        <h3 class="heading mb-4 text-center">PICK YOUR ROOMS</h3>
+        <h3 class="heading mb-4 text-center">AVAILABLE ROOMS</h3>
         <form method="POST" action="{% url 'booking-page' %}">
           {% csrf_token %}
 		      <div class="row">
             <input type="text" class="form-control d-none" placeholder="Check-in date" id="checkIn" value={{check_in_date}} name="checkIn" required />
             <input type="text" class="form-control d-none" placeholder="Check-out date" id="checkOut" value={{check_out_date}} name="checkOut" required />
-            <p>{{ room_available.room_no }}</p>
+            <p>{{ room_available }}</p>
             {% for room in rooms %}
               {% if room.rooms_count.count > 0 %}
                 <div class="col-sm col-md-6 col-lg-4 ftco-animate">
@@ -51,7 +51,15 @@
                     <div class="img d-flex justify-content-center align-items-center" style="background-image: url({{room.imageURL}});">
                     </div>
                     <div class="text p-3 text-center">
-                      <span class="badge badge-primary px-2 py-2">Rooms Left: {{room.rooms_count.count}}</span>
+                      {% for k, v in room_type_grouped.items %}
+                        {% if k == room %}
+                          {% if v|length == 1 %}
+                            <span class="badge badge-danger px-2 py-2">{{ v|length }} Room Left!</span>
+                          {% else %}
+                            <span class="badge badge-primary px-2 py-2">Rooms Left: {{ v|length }}</span>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
                       <h3 class="mb-3">{{room.room_name}}</h3>
                       <p><span class="price mr-2">Rp. {{ room.room_price|intcomma }}</span> <span class="per">per night</span></p>
                       <hr>

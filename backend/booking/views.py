@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .models import Booking
 from room.models import RoomType, Room
 from django.contrib.auth.decorators import login_required
@@ -13,32 +14,26 @@ def CheckBookingPage(request):
         check_in_date = request.POST.get("checkIn")
         check_out_date = request.POST.get("checkOut")
 
-        booking = Booking.objects.filter(
-            check_in__gte=check_in_date, check_out__lte=check_out_date).count()
-
         booking_no_room = Booking.objects.filter(
             check_in__gte=check_in_date, check_out__lte=check_out_date).values('room__room_no')
-        print(booking_no_room)
-        room_available = Room.objects.exclude(room_no__in=booking_no_room)
-        print(room_available)
+        room_available = Room.objects.exclude(
+            room_no__in=booking_no_room).order_by('room_type')
         rooms = RoomType.objects.filter(
             rooms_count__in=room_available).distinct()
         print(rooms)
 
-        # if booking == 0:
-        #     rooms = room_available
-        # elif booking > 0:
-        #     rooms = RoomType.objects.exclude(
-        #         rooms_count__room_no__in=booking_no_room)
+        room_type_grouped = {}
+
+        for changelog in room_available:
+            current_key = changelog.room_type
+            room_type_grouped.setdefault(current_key, []).append(changelog)
 
         context = {
-            'booking': booking,
             'check_in_date': check_in_date,
             'check_out_date': check_out_date,
-            'room_available': room_available,
             'rooms': rooms,
+            'room_type_grouped': room_type_grouped
         }
-
         return render(request, 'booking/check.html', context)
 
 

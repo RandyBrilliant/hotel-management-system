@@ -6,41 +6,6 @@ from .models import Profile
 User = get_user_model()
 
 
-# class RegisterForm(forms.ModelForm):
-#     password = forms.CharField(widget=forms.PasswordInput)
-#     password_2 = forms.CharField(
-#         label="Confirm Password", widget=forms.PasswordInput)
-
-#     class Meta:
-#         model = User
-#         fields = ['email', 'username']
-
-#     def clean_email(self):
-#         email = self.cleaned_data.get('email')
-#         qs = User.objects.filter(email=email)
-#         if qs.exist():
-#             raise forms.ValidationError('Email is taken, use another one.')
-
-#         return email
-
-#     def clean_username(self):
-#         username = self.cleaned_data.get('username')
-#         qs = User.objects.filter(username=username)
-#         if qs.exist():
-#             raise forms.ValidationError('Username is taken, use another one.')
-
-#         return username
-
-#     def clean(self):
-#         cleaned_data = super().clean()
-#         password = cleaned_data.get("password")
-#         password_2 = cleaned_data.get("password_2")
-
-#         if password is not None and password != password_2:
-#             self.add_error("password_2", "Your passwords must match")
-
-#         return password
-
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User

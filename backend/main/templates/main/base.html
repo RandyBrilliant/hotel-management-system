@@ -47,8 +47,10 @@
                     <img src="{{user.profile.image.url}}" width="40" height="40" class="rounded-circle">
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Dashboard</a>
-                    <a class="dropdown-item" href="{% url 'profile' %}">Edit Profile</a>
+                    {% if user.admin or user.staff %}
+                      <a class="dropdown-item" href="/admin">Dashboard</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                     <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
                   </div>
                 </li>
