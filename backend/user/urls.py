@@ -10,4 +10,8 @@ urlpatterns = [
     path('profile/change_password', views.PasswordChanges, name="change_password"),
     path('profile/booking', views.BookingList, name="list-booking"),
     path('accounts/', include('allauth.urls')),
+    path('profile/create-feedback',
+         views.CreateFeedback.as_view(), name="user-feedback"),
+    path('profile/create-feedback/completed', views.CreatedFeedback,
+         name="feedback-submitted"),
 ]

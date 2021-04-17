@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
-{% block title %}{{user.username}}'s Profile{% endblock %}
+{% block title %}Your Feedback{% endblock %}
 
 {% block content %}
 <div class="hero-wrap" style="background-image: url({% static 'images/bg_1.jpg' %});">
@@ -10,7 +10,7 @@
     <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
       <div class="col-md-9 text-center d-flex align-items-end justify-content-center">
         <div class="text">
-	        <h1 class="mb-4 bread">{{user.username}}'s Profile</h1>
+	        <h1 class="mb-4 bread">Your Feedback</h1>
         </div>
       </div>
     </div>
@@ -21,34 +21,33 @@
 		<div class="col-md-3 ">
 		  <div class="list-group ">
         <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">Change Profile Data</a>
-        <a href="{% url 'change_password' %}" class="list-group-item list-group-item-action active">Change Password</a>
+        <a href="{% url 'change_password' %}" class="list-group-item list-group-item-action">Change Password</a>
         <a href="{% url 'list-booking' %}" class="list-group-item list-group-item-action">Booking</a>
-        <a href="{% url 'user-feedback' %}" class="list-group-item list-group-item-action">Feedback</a>
+        <a href="{% url 'user-feedback' %}" class="list-group-item list-group-item-action active">Feedback</a>
       </div> 
 		</div>
 	  <div class="col-md-9">
 		  <div class="card">
 		    <div class="card-body">
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-success" role="alert">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
+          <div class="alert alert-success" role="alert">
+            {{ note }}
+          </div>
 		      <div class="row">
 		        <div class="col-md-12">
-		          <h4>Change Your Password</h4>
+              <div class="text-center">
+                <h3>Customer Feedback</h3>
+                <p>We love to hear from our lovely customer, please provide your honest feedback for us! We surely will improve much better in the future</p>
+              </div>
 		          <hr>
 		        </div>
 		      </div>
 		      <div class="row">
 		        <div class="col-md-12">
-		          <form method="POST">
+		          <form method="POST" >
                 {% csrf_token %}
                 {{ form|crispy }}
                 <div class="form-group row">
-                  <button name="submit" type="submit" class="btn btn-primary btn-block  mt-4">Update Password</button>
+                    <button name="submit" type="submit" class="btn btn-primary btn-block mt-4" style="border-radius: 0;">Send Feedback</button>
                 </div>
               </form>
 		        </div>

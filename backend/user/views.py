@@ -5,7 +5,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from .forms import RegisterForm, UserUpdateForm
 from booking.models import Booking
-# Create your views here.
+
+from .models import UserFeedback
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (
+    CreateView
+)
 
 
 @login_required
@@ -75,3 +80,16 @@ def BookingList(request):
         'my_bookings': my_bookings
     }
     return render(request, 'user/list_booking.html', context)
+
+
+class CreateFeedback(LoginRequiredMixin, CreateView):
+    model = UserFeedback
+    fields = ['category', 'comment']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+def CreatedFeedback(request):
+    return render(request, "user/userfeedback_form.html", {'notes': "You have submitted the feedback"})

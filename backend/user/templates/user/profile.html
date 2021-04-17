@@ -8,7 +8,7 @@
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
-      <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+      <div class="col-md-9 text-center d-flex align-items-end justify-content-center">
         <div class="text">
 	        <h1 class="mb-4 bread">{{user.username}}'s Profile</h1>
         </div>
@@ -23,6 +23,7 @@
         <a href="{% url 'profile' %}" class="list-group-item list-group-item-action active">Change Profile Data</a>
         <a href="{% url 'change_password' %}" class="list-group-item list-group-item-action">Change Password</a>
         <a href="{% url 'list-booking' %}" class="list-group-item list-group-item-action">Booking</a>
+        <a href="{% url 'user-feedback' %}" class="list-group-item list-group-item-action">Feedback</a>
       </div> 
 		</div>
 	  <div class="col-md-9">
@@ -57,4 +58,16 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block customjs %}
+<script>
+  function initFreshChat() {
+    window.fcWidget.init({
+      token: "26224aa7-30c8-4d6f-b922-8f58fb7f2ef2",
+      host: "https://wchat.freshchat.com"
+    });
+  }
+  function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
+</script>
 {% endblock %}

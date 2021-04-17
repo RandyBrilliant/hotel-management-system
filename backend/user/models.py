@@ -144,3 +144,38 @@ class Profile(models.Model):
         except:
             url = ''
         return url
+
+
+class UserFeedback(models.Model):
+    FRONT = "FO"
+    RESERVE = "RO"
+    RESTAURANT = "RT"
+    CLEAN = "CL"
+    SERVICE = "SR"
+    WEBSITE = "WB"
+    OTHER = "OT"
+
+    CATEGORY = [
+        (FRONT, 'Front Office'),
+        (RESERVE, 'Reservation'),
+        (RESTAURANT, 'Restaurant'),
+        (CLEAN, 'Cleaning'),
+        (SERVICE, 'Services'),
+        (WEBSITE, 'Website'),
+        (OTHER, 'Other'),
+    ]
+
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    category = models.CharField(
+        max_length=2,
+        choices=CATEGORY,
+        verbose_name="Feedback Category"
+    )
+    comment = models.TextField()
+    featured = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.user.username} Feedback'
+
+    def get_absolute_url(self):
+        return reverse('feedback-submitted')
